@@ -20,14 +20,14 @@ export class MainService{
             .map(res => res.json());
     }
 
-    getTeamInfoCommon(teamId){
-        return this.http.get(this.baseUrl + 'teaminfocommon/?TeamID=' + teamId + '&Season=2018-19&SeasonType=Regular Season&LeagueID=00',
+    getCityInfo(cityName){
+        return this.http.get(this.baseImageUrl + '&q='+ cityName+'&image_type=photo&pretty=true',
             { 'Content-Type': 'application/json' })
             .map(res => res.json());
     }
 
-    getCityInfo(cityName){
-        return this.http.get(this.baseImageUrl + '&q='+ cityName+'&image_type=photo&pretty=true',
+    getTeamInfoCommon(teamId){
+        return this.http.get(this.baseUrl + 'teaminfocommon/?TeamID=' + teamId + '&Season=2018-19&SeasonType=Regular Season&LeagueID=00',
             { 'Content-Type': 'application/json' })
             .map(res => res.json());
     }

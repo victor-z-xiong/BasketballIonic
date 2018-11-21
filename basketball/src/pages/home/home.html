@@ -15,4 +15,19 @@
   </p>
 
   <button ion-button secondary menuToggle>Toggle Menu</button>
+
+  
+  <ion-content class="card-background-page">
+
+    <ion-list>
+      <ion-item *ngFor="let linescoreItem of linescoreItems">
+          <ion-card>
+            <img [src]="mapCityToImageURL[linescoreItem[5]]"/>
+            <div class="card-title">{{linescoreItem[5]}}</div>
+            <div class="card-subtitle">{{linescoreItem[21]}}</div>
+          </ion-card>
+      </ion-item>
+    </ion-list>
+  
+  </ion-content>
 </ion-content>
