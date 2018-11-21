@@ -8,22 +8,33 @@ page-home {
       position: relative;
       text-align: center;
     }
+
+    .card-black-background{
+      position: absolute;
+      background: rgb(0, 0, 0); /* Fallback for older browsers without RGBA-support */
+      background: rgba(0, 0, 0, 0.5);
+      width: 60%;
+      height: 40%;
+    }
   
-    .card-title {
+    .card-homeTeam {
       position: absolute;
       top: 36%;
       font-size: 2.0em;
       width: 100%;
       font-weight: bold;
       color: #fff;
+      background: rgba(0, 0, 0, 0.5);
     }
   
-    .card-subtitle {
-      font-size: 1.0em;
+    .card-awayTeam {
+      font-size: 2.0em;
       position: absolute;
       top: 52%;
       width: 100%;
+      font-weight: bold;
       color: #fff;
+      background: rgba(0, 0, 0, 0.5);
     }
   
   }

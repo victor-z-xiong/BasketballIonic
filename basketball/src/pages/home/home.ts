@@ -11,13 +11,16 @@ export class HomePage {
   cityUrl: any;
   linescoreItems: any;
   linescoreIndex: number;
-  mapCityToImageURL: any;   
+  //mapCityToImageURL: any;   
+  games: any;
+  gameDate: any;
 
   constructor(public navCtrl: NavController, private mainService: MainService) {
     this.scoreboardReponse = null;
     this.linescoreItems = null;
     this.linescoreIndex = 0;
-    this.mapCityToImageURL = {};
+    this.games = [];
+    this.gameDate = this.getCurrentDate().replace("/", "-").replace("/", "-");
   }
 
   getCurrentDate() : string {
@@ -41,21 +44,43 @@ export class HomePage {
     this.mainService.getScoreBoardByDate(this.getCurrentDate()).subscribe(response => {
      this.scoreboardReponse = response;
      this.linescoreItems = this.scoreboardReponse.resultSets[1].rowSet;
-     this.initCityImageMap(this.linescoreItems);
+     this.constructGamesObject();
+     this.assignGameBackgroundUrls();
     });
   }
 
-  initCityImageMap(linescoreItems){
-    var cityName = '';
-    linescoreItems.forEach(element => {
-      cityName = element[5];
-      this.mapCityImageUrlByName(cityName);
-    });
-  }
-
-  mapCityImageUrlByName(cityName){
-    this.mainService.getCityInfo(cityName).subscribe(response => {
-      this.mapCityToImageURL[cityName] = response.hits[0].largeImageURL;
+  setDate(){
+    var date = this.gameDate.replace("-", "/").replace("/", "-");
+    this.mainService.getScoreBoardByDate(date).subscribe(response => {
+      this.scoreboardReponse = response;
+      this.linescoreItems = this.scoreboardReponse.resultSets[1].rowSet;
+      this.games = [];
+      this.constructGamesObject();
+      this.assignGameBackgroundUrls();
      });
+  }
+
+  mapCityImageUrlByName(game){
+    this.mainService.getCityInfo(game.homeTeamCity).subscribe(response => {
+      game.gameBackgroundUrl = response.hits[0].largeImageURL;
+     });
+  }
+
+  assignGameBackgroundUrls(){
+    for(var i = 0; i < Object.keys(this.games).length; i++){
+      this.mapCityImageUrlByName(this.games[i]);
+    }
+  }
+
+  constructGamesObject(){
+    for(var i = 0; i < Object.keys(this.linescoreItems).length; i+=2){
+      var g : {homeTeamCity: string; awayTeamCity: string; gameBackgroundUrl: string; homeTeamScore: number; awayTeamScore: number; } 
+      = {homeTeamCity: '', awayTeamCity: '', gameBackgroundUrl: '', homeTeamScore: 0, awayTeamScore: 0};
+          g.homeTeamCity=this.linescoreItems[i][5] == "LA" ? this.linescoreItems[i][4] : this.linescoreItems[i][5];
+          g.homeTeamScore= this.linescoreItems[i][21] == null ? "N/A" : this.linescoreItems[i][21];
+          g.awayTeamCity=this.linescoreItems[i+1][5] == "LA" ? this.linescoreItems[i+1][4] : this.linescoreItems[i+1][5];
+          g.awayTeamScore=this.linescoreItems[i+1][21] == null ? "N/A" : this.linescoreItems[i+1][21];
+          this.games.push(g);
+    }
   }
 }

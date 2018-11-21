@@ -21,7 +21,7 @@ export class MainService{
     }
 
     getCityInfo(cityName){
-        return this.http.get(this.baseImageUrl + '&q='+ cityName+'&image_type=photo&pretty=true',
+        return this.http.get(this.baseImageUrl + '&q='+ cityName+'&image_type=photo&pretty=true&min_height=1200',
             { 'Content-Type': 'application/json' })
             .map(res => res.json());
     }
