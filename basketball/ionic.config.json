@@ -1,5 +1,7 @@
 {
   "name": "basketball",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

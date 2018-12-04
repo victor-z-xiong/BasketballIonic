@@ -16,8 +16,8 @@ import { MainService } from '../../app/services/main.service';
 })
 export class HockeyPage {
   scoreboardReponse: any;
-  games: [];
-  gameObjArr: [];
+  games: any;
+  gameObjArr: any;
   gameDate: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private mainService: MainService) {
@@ -43,10 +43,10 @@ export class HockeyPage {
     this.games.forEach(game => {
       var g : {homeTeamCity: string; awayTeamCity: string; gameBackgroundUrl: string; homeTeamScore: number; awayTeamScore: number; } 
       = {homeTeamCity: '', awayTeamCity: '', gameBackgroundUrl: '', homeTeamScore: 0, awayTeamScore: 0};
-          g.homeTeamCity=game.teams.home.team.name;
-          g.homeTeamScore= game.teams.home.score;
-          g.awayTeamCity=game.teams.away.team.name;
-          g.awayTeamScore=game.teams.away.score;
+          g.homeTeamCity=(<any>game).teams.home.team.name;
+          g.homeTeamScore= (<any>game).teams.home.score;
+          g.awayTeamCity=(<any>game).teams.away.team.name;
+          g.awayTeamScore=(<any>game).teams.away.score;
           this.gameObjArr.push(g);
     });
   }
