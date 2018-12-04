@@ -21,8 +21,8 @@
       <ion-item *ngFor="let game of games">
           <ion-card>
             <img [src]="game.gameBackgroundUrl"/>
-              <div class="card-homeTeam">{{game.homeTeamCity}} - {{game.homeTeamScore}}</div>
               <div class="card-awayTeam">{{game.awayTeamCity}} - {{game.awayTeamScore}}</div>
+              <div class="card-homeTeam">{{game.homeTeamCity}} - {{game.homeTeamScore}}</div>
           </ion-card>
       </ion-item>
     </ion-list>

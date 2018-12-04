@@ -20,28 +20,11 @@ export class HomePage {
     this.linescoreItems = null;
     this.linescoreIndex = 0;
     this.games = [];
-    this.gameDate = this.getCurrentDate().replace("/", "-").replace("/", "-");
-  }
-
-  getCurrentDate() : string {
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
-    
-    if(dd<10) {
-        dd = parseInt('0'+dd)
-    } 
-    
-    if(mm<10) {
-        mm = parseInt('0'+mm)
-    } 
-    
-    return mm + '/' + dd + '/' + yyyy;
+    this.gameDate = this.mainService.getCurrentDate().replace("/", "-").replace("/", "-");
   }
 
   ngOnInit(){
-    this.mainService.getScoreBoardByDate(this.getCurrentDate()).subscribe(response => {
+    this.mainService.getScoreBoardByDate(this.mainService.getCurrentDate()).subscribe(response => {
      this.scoreboardReponse = response;
      this.linescoreItems = this.scoreboardReponse.resultSets[1].rowSet;
      this.constructGamesObject();
